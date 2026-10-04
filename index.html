@@ -135,20 +135,33 @@
         function dodge() {
             const btnWidth = btnNo.offsetWidth;
             const btnHeight = btnNo.offsetHeight;
+            const card = document.getElementById('card');
+            const cardRect = card.getBoundingClientRect();
             
             let currentX = parseFloat(btnNo.style.left) || 0;
             let currentY = parseFloat(btnNo.style.top) || 0;
             
-            // Move within a small radius (e.g. 70-100px away) so it stays nearby
-            const jumpDistance = 90;
+            // Move within a small radius (e.g. 80px away)
+            const jumpDistance = 80;
             const angle = Math.random() * 2 * Math.PI;
             let newX = currentX + Math.cos(angle) * jumpDistance;
             let newY = currentY + Math.sin(angle) * jumpDistance;
             
-            // Ensure it strictly stays within the screen bounds with padding
+            // Limit the movement so it strictly stays around the card
             const padding = 20;
-            newX = Math.max(padding, Math.min(window.innerWidth - btnWidth - padding, newX));
-            newY = Math.max(padding, Math.min(window.innerHeight - btnHeight - padding, newY));
+            let minX = cardRect.left - padding;
+            let maxX = cardRect.right - btnWidth + padding;
+            let minY = cardRect.top - padding;
+            let maxY = cardRect.bottom - btnHeight + padding;
+            
+            // Also ensure it never leaves the screen bounds
+            minX = Math.max(minX, 10);
+            maxX = Math.min(maxX, window.innerWidth - btnWidth - 10);
+            minY = Math.max(minY, 10);
+            maxY = Math.min(maxY, window.innerHeight - btnHeight - 10);
+            
+            newX = Math.max(minX, Math.min(maxX, newX));
+            newY = Math.max(minY, Math.min(maxY, newY));
             
             btnNo.style.left = newX + 'px';
             btnNo.style.top = newY + 'px';
