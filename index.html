@@ -136,7 +136,7 @@
             </p>
             
             <div class="flex flex-col justify-center items-center gap-5 mt-4">
-                <button onclick="acceptApology()" class="glass-btn-primary w-56 font-bold py-3.5 px-8 rounded-full transform hover:scale-105 transition-all duration-300 z-20 text-lg">
+                <button id="btn-yes" onclick="acceptApology()" class="glass-btn-primary w-56 font-bold py-3.5 px-8 rounded-full transform hover:scale-105 transition-all duration-300 z-20 text-lg">
                     Iya, Dimaafin ❤️
                 </button>
                 <button id="btn-no" class="glass-btn w-56 text-gray-600 font-bold py-3.5 px-8 rounded-full z-30 cursor-pointer text-lg hover:bg-white hover:text-gray-800 transition-colors">
@@ -205,9 +205,11 @@
             }, 800);
         }
 
-        // 3. Runaway Button & Emoji Trail
+        // 3. Runaway Button & Emoji Trail & Grow Yes Button
         const btnNo = document.getElementById('btn-no');
+        const btnYes = document.getElementById('btn-yes');
         const trailContainer = document.getElementById('emoji-trail-container');
+        let yesScale = 1;
         
         function moveButton() {
             const card = document.getElementById('card');
@@ -229,6 +231,11 @@
                 trail.style.top = currentY + 'px';
                 trailContainer.appendChild(trail);
             }
+            
+            // GROW THE YES BUTTON
+            yesScale += 0.2; // Tambah ukuran 20% setiap kali
+            btnYes.style.transform = `scale(${yesScale})`;
+            btnYes.style.zIndex = '40'; // Pastikan tombol Iya selalu di depan saat membesar
             
             const btnWidth = btnNo.offsetWidth;
             const btnHeight = btnNo.offsetHeight;
