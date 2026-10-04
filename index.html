@@ -169,7 +169,13 @@
 
         btnNo.addEventListener('mouseover', moveButton);
         btnNo.addEventListener('touchstart', (e) => {
-            e.preventDefault(); // prevent the click from registering on touch
+            e.preventDefault(); // Mencegah tap tercatat sebagai click di layar HP
+            moveButton();
+        }, { passive: false });
+        
+        // Fallback jika entah bagaimana bisa ter-klik
+        btnNo.addEventListener('click', (e) => {
+            e.preventDefault();
             moveButton();
         });
 
