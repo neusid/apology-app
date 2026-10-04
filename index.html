@@ -3,89 +3,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Untuk Meta 🌸</title>
+    <title>Untuk Meta 🌻</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Quicksand', sans-serif;
-            background: linear-gradient(135deg, #fce4ec 0%, #f3e5f5 100%);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: linear-gradient(-45deg, #ffdde1, #ee9ca7, #fdfbfb, #ebedee);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
             overflow: hidden;
             height: 100vh;
             margin: 0;
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
         }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Animated Glowing Orbs behind the glass */
+        .orb { position: absolute; border-radius: 50%; filter: blur(80px); z-index: -1; animation: floatOrb 20s infinite ease-in-out alternate; }
+        .orb-1 { width: 300px; height: 300px; background: rgba(255, 182, 193, 0.6); top: -50px; left: -50px; }
+        .orb-2 { width: 400px; height: 400px; background: rgba(255, 235, 59, 0.4); bottom: -100px; right: -50px; animation-delay: -5s; }
+        .orb-3 { width: 250px; height: 250px; background: rgba(173, 216, 230, 0.5); top: 30%; left: 40%; animation-delay: -10s; }
+
+        @keyframes floatOrb {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(100px, 100px) scale(1.2); }
+        }
+
         .romantic-font { font-family: 'Dancing Script', cursive; }
         
         /* Floating particles */
         .floating-hearts { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
-        .heart-particle { position: absolute; font-size: 1.5rem; animation: floatUp 10s linear infinite; opacity: 0.6; }
+        .heart-particle { position: absolute; font-size: 1.5rem; animation: floatUp 10s linear infinite; opacity: 0.8; text-shadow: 0 0 10px rgba(255,255,255,0.8); }
         @keyframes floatUp {
             0% { transform: translateY(100vh) rotate(0deg) scale(0.8); opacity: 0; }
-            10% { opacity: 0.6; }
-            90% { opacity: 0.6; }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
             100% { transform: translateY(-10vh) rotate(360deg) scale(1.2); opacity: 0; }
         }
 
         /* Animations */
-        .fade-in { animation: fadeIn 1.5s ease-in forwards; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { animation: fadeIn 1s ease-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
         
-        .bounce-in { animation: bounceIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
-        @keyframes bounceIn { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+        .bounce-in { animation: bounceIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+        @keyframes bounceIn { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
 
         .stamp-anim { animation: stampIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.5) forwards; }
         @keyframes stampIn { 0% { transform: scale(3) rotate(-20deg); opacity: 0; } 100% { transform: scale(1) rotate(-10deg); opacity: 1; } }
 
-        .envelope-open { animation: envelopeOpen 1s forwards ease-in-out; }
+        .envelope-open { animation: envelopeOpen 1s forwards cubic-bezier(0.4, 0, 0.2, 1); }
         @keyframes envelopeOpen {
             0% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.1); opacity: 1; }
-            100% { transform: scale(0) translateY(-500px); opacity: 0; }
+            30% { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(0.8) translateY(-100vh); opacity: 0; }
         }
 
-        /* Elements */
-        .main-card { z-index: 10; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); }
-        .trail-emoji { position: absolute; font-size: 2.5rem; pointer-events: none; animation: popOut 0.5s ease-out forwards; }
+        /* Glassmorphism Classes */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.35);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+            z-index: 10;
+        }
+        
+        .glass-inner {
+            background: rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(10px);
+        }
+
+        .glass-btn {
+            background: linear-gradient(135deg, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.4) 100%);
+            border: 1px solid rgba(255,255,255,0.8);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            backdrop-filter: blur(10px);
+        }
+
+        .glass-btn-primary {
+            background: linear-gradient(135deg, rgba(244, 114, 182, 0.9) 0%, rgba(219, 39, 119, 0.9) 100%);
+            border: 1px solid rgba(255, 192, 203, 0.5);
+            box-shadow: 0 4px 15px rgba(219, 39, 119, 0.2);
+            color: white;
+        }
+
+        .trail-emoji { position: absolute; font-size: 2.5rem; pointer-events: none; animation: popOut 0.5s ease-out forwards; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1)); }
         @keyframes popOut { 0% { transform: scale(0); } 80% { transform: scale(1.2); } 100% { transform: scale(1); } }
         
-        #envelope-container { z-index: 100; position: absolute; inset: 0; display: flex; justify-content: center; align-items: center; background: rgba(253, 242, 248, 0.95); backdrop-filter: blur(5px); }
+        #envelope-container { z-index: 100; position: absolute; inset: 0; display: flex; justify-content: center; align-items: center; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); }
     </style>
 </head>
 <body>
+    <!-- Background Orbs -->
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
     <!-- Background Particles -->
     <div class="floating-hearts" id="floating-hearts"></div>
 
     <!-- EVENT 1: The Envelope -->
     <div id="envelope-container">
-        <div class="text-center cursor-pointer transform hover:scale-105 transition-transform" onclick="openEnvelope()">
-            <div class="text-9xl mb-4">💌</div>
-            <p class="text-xl text-pink-600 font-bold romantic-font animate-pulse">Ada surat buat Meta... (Tap untuk buka)</p>
+        <div class="glass-card p-12 rounded-3xl text-center cursor-pointer transform hover:scale-105 transition-all duration-300 shadow-xl" onclick="openEnvelope()">
+            <div class="text-8xl mb-6 filter drop-shadow-lg">💌</div>
+            <p class="text-2xl text-gray-800 font-bold romantic-font animate-pulse tracking-wide">Ada pesan buat Meta...<br><span class="text-sm font-sans text-gray-600 font-normal mt-2 block">(Tap untuk buka)</span></p>
         </div>
     </div>
 
     <!-- EVENT 2 & 3: Main Card -->
-    <div id="card" class="main-card p-8 sm:p-10 rounded-3xl shadow-2xl w-full max-w-lg min-h-[450px] flex flex-col justify-center text-center mx-4 border border-pink-200 hidden relative overflow-hidden">
+    <div id="card" class="glass-card p-8 sm:p-12 rounded-3xl w-full max-w-lg min-h-[450px] flex flex-col justify-center text-center mx-4 hidden relative overflow-hidden">
         
         <!-- Trail Container for Emojis -->
         <div id="emoji-trail-container" class="absolute inset-0 pointer-events-none z-0"></div>
 
         <!-- STAGE 2: Apology -->
         <div id="step-1" class="z-10 relative">
-            <h1 class="romantic-font text-5xl text-pink-600 mb-6 drop-shadow-sm">Halo Meta... 🌻</h1>
-            <p class="text-xl text-gray-700 mb-8 leading-relaxed font-medium">
+            <h1 class="romantic-font text-5xl text-gray-800 mb-6 drop-shadow-sm">Halo Meta... 🌻</h1>
+            <p class="text-lg text-gray-700 mb-10 leading-relaxed font-medium">
                 Aku minta maaf banget ya kalau hari ini aku gak seperti biasanya dan mungkin udah bikin kamu annoying. 🥺<br><br>
                 Kamu mau kan maafin aku?
             </p>
             
-            <div class="flex flex-col justify-center items-center gap-6 mt-8">
-                <button onclick="acceptApology()" class="w-48 bg-gradient-to-r from-pink-400 to-pink-500 hover:from-pink-500 hover:to-pink-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transform hover:scale-110 transition-all duration-300 z-20">
+            <div class="flex flex-col justify-center items-center gap-5 mt-4">
+                <button onclick="acceptApology()" class="glass-btn-primary w-56 font-bold py-3.5 px-8 rounded-full transform hover:scale-105 transition-all duration-300 z-20 text-lg">
                     Iya, Dimaafin ❤️
                 </button>
-                <button id="btn-no" class="w-48 bg-gray-200 text-gray-600 font-bold py-3 px-8 rounded-full shadow-md z-30 cursor-pointer">
+                <button id="btn-no" class="glass-btn w-56 text-gray-600 font-bold py-3.5 px-8 rounded-full z-30 cursor-pointer text-lg hover:bg-white hover:text-gray-800 transition-colors">
                     Gak Mau! 😤
                 </button>
             </div>
@@ -93,22 +147,22 @@
 
         <!-- STAGE 3: The Contract -->
         <div id="step-2" class="hidden fade-in z-10 relative">
-            <h1 class="romantic-font text-5xl text-pink-600 mb-4 drop-shadow-sm">Kontrak Damai 📜</h1>
-            <div class="text-left text-gray-700 font-medium bg-pink-50 p-6 rounded-2xl border border-pink-100 shadow-inner mb-6 text-sm sm:text-base">
-                <p class="mb-2">Dengan menekan stempel di bawah, Pihak Pertama (Meta) secara sadar menyatakan bahwa:</p>
-                <ol class="list-decimal pl-5 space-y-1 mb-4">
+            <h1 class="romantic-font text-5xl text-gray-800 mb-6 drop-shadow-sm">Kontrak Damai 📜</h1>
+            <div class="text-left text-gray-700 font-medium glass-inner p-6 rounded-2xl mb-8 text-sm sm:text-base">
+                <p class="mb-3">Dengan menekan stempel di bawah, Pihak Pertama (Meta) secara sadar menyatakan bahwa:</p>
+                <ol class="list-decimal pl-5 space-y-2 mb-5">
                     <li>Kekesalan hari ini resmi dihapuskan sepenuhnya.</li>
                     <li>Malik dimaafkan 100%.</li>
                     <li>Meta akan kembali tersenyum manis. 🌻</li>
                 </ol>
-                <p class="italic text-center text-pink-500">Tertanda, Malik yang menyesal.</p>
+                <p class="italic text-center text-gray-500 font-semibold">Tertanda, Malik yang menyesal.</p>
             </div>
             
-            <div class="relative flex justify-center items-center h-24">
-                <button id="btn-stamp" onclick="signContract()" class="bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-8 rounded-lg shadow-lg border-b-4 border-red-700 transition-all active:border-b-0 active:translate-y-1">
+            <div class="relative flex justify-center items-center h-24 mt-4">
+                <button id="btn-stamp" onclick="signContract()" class="bg-red-500 hover:bg-red-600 text-white font-bold py-3.5 px-10 rounded-xl shadow-lg border-b-4 border-red-700 transition-all active:border-b-0 active:translate-y-1 text-lg tracking-wider">
                     STEMPEL SAH!
                 </button>
-                <div id="stamp-mark" class="hidden absolute text-red-600 font-black text-6xl border-8 border-red-600 p-2 rounded-lg bg-white/80 stamp-anim transform -rotate-12 pointer-events-none">
+                <div id="stamp-mark" class="hidden absolute text-red-600 font-black text-6xl border-8 border-red-600 p-3 rounded-xl bg-white/90 stamp-anim transform -rotate-12 pointer-events-none backdrop-blur-sm">
                     SAH!
                 </div>
             </div>
@@ -116,16 +170,18 @@
 
         <!-- FINALE: Success -->
         <div id="step-3" class="hidden fade-in z-10 relative">
-            <h1 class="romantic-font text-6xl text-pink-600 mb-6 drop-shadow-sm">Terima Kasih Meta! 💕</h1>
-            <p class="text-xl text-gray-700 mb-4 font-semibold">Perjanjian telah disahkan.</p>
-            <p class="text-pink-500 font-bold text-3xl mt-6 romantic-font tracking-wider">I Love You! ✨</p>
+            <h1 class="romantic-font text-6xl text-gray-800 mb-6 drop-shadow-sm">Terima Kasih Meta! 💕</h1>
+            <p class="text-xl text-gray-700 mb-6 font-medium">Perjanjian damai telah disahkan.</p>
+            <div class="glass-inner p-6 rounded-2xl inline-block mt-4 transform hover:scale-105 transition-transform duration-300">
+                <p class="text-gray-800 font-bold text-3xl romantic-font tracking-wider px-4">You're the best! 🌻</p>
+            </div>
         </div>
     </div>
 
     <script>
         // 1. Background Particles
         const heartsContainer = document.getElementById('floating-hearts');
-        const heartSymbols = ['🌻', '✨', '🌻', '🌸'];
+        const heartSymbols = ['🌻', '✨', '🌻', '🤍'];
         for(let i=0; i<15; i++) {
             let heart = document.createElement('div');
             heart.className = 'heart-particle';
@@ -156,19 +212,16 @@
         function moveButton() {
             const card = document.getElementById('card');
             
-            // Record current position for trail
             let currentX = parseFloat(btnNo.style.left);
             let currentY = parseFloat(btnNo.style.top);
             let wasFixed = btnNo.style.position === 'absolute';
             
             if (!wasFixed) {
-                // Initial conversion to absolute positioning relative to the card
                 btnNo.style.position = 'absolute';
                 btnNo.style.margin = '0';
                 currentX = btnNo.offsetLeft;
                 currentY = btnNo.offsetTop;
             } else {
-                // Drop a crying emoji at the old position
                 let trail = document.createElement('div');
                 trail.innerText = '😭';
                 trail.className = 'trail-emoji';
@@ -182,14 +235,12 @@
             const cardWidth = card.offsetWidth;
             const cardHeight = card.offsetHeight;
             
-            // Padding inside the card boundaries
-            const padding = 20;
+            const padding = 25;
             const minX = padding;
             const maxX = cardWidth - btnWidth - padding;
             const minY = padding;
             const maxY = cardHeight - btnHeight - padding;
             
-            // Jump randomly ANYWHERE inside the card!
             let newX = minX + Math.random() * (maxX - minX);
             let newY = minY + Math.random() * (maxY - minY);
             
@@ -207,15 +258,15 @@
             moveButton();
         });
 
-        // 4. Accept Apology -> Show Contract
+        // 4. Accept Apology
         function acceptApology() {
             document.getElementById('step-1').classList.add('hidden');
             document.getElementById('step-2').classList.remove('hidden');
-            btnNo.style.display = 'none'; // hide runaway button
-            trailContainer.innerHTML = ''; // clear emojis
+            btnNo.style.display = 'none';
+            trailContainer.innerHTML = '';
         }
 
-        // 5. Sign Contract -> Finale & Confetti
+        // 5. Sign Contract
         function signContract() {
             const btnStamp = document.getElementById('btn-stamp');
             const stampMark = document.getElementById('stamp-mark');
@@ -223,27 +274,25 @@
             btnStamp.style.visibility = 'hidden';
             stampMark.classList.remove('hidden');
             
-            // Wait for stamp animation, then show finale
             setTimeout(() => {
                 document.getElementById('step-2').classList.add('hidden');
                 document.getElementById('step-3').classList.remove('hidden');
                 
-                // Continuous Confetti Explosion
                 var duration = 5000;
                 var end = Date.now() + duration;
 
                 (function frame() {
                     confetti({
-                        particleCount: 5, angle: 60, spread: 55, origin: { x: 0 },
-                        colors: ['#ffc0cb', '#ffb6c1', '#ff69b4', '#ffd700', '#ffeb3b']
+                        particleCount: 6, angle: 60, spread: 55, origin: { x: 0 },
+                        colors: ['#ffffff', '#ffd700', '#ffeb3b', '#fce4ec']
                     });
                     confetti({
-                        particleCount: 5, angle: 120, spread: 55, origin: { x: 1 },
-                        colors: ['#ffc0cb', '#ffb6c1', '#ff69b4', '#ffd700', '#ffeb3b']
+                        particleCount: 6, angle: 120, spread: 55, origin: { x: 1 },
+                        colors: ['#ffffff', '#ffd700', '#ffeb3b', '#fce4ec']
                     });
                     if (Date.now() < end) requestAnimationFrame(frame);
                 }());
-            }, 1800); // Wait almost 2 seconds looking at the stamped contract
+            }, 1800);
         }
     </script>
 </body>
