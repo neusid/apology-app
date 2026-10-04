@@ -73,7 +73,7 @@
     <!-- Background Hearts -->
     <div class="floating-hearts" id="floating-hearts"></div>
 
-    <div id="card" class="main-card p-10 rounded-3xl shadow-2xl max-w-lg text-center mx-4 border border-pink-200 bounce-in">
+    <div id="card" class="main-card p-10 rounded-3xl shadow-2xl w-full max-w-lg min-h-[400px] flex flex-col justify-center text-center mx-4 border border-pink-200 bounce-in relative">
         <div id="step-1">
             <h1 class="romantic-font text-5xl text-pink-600 mb-6 drop-shadow-sm">Halo Meta... 🌻</h1>
             <p class="text-xl text-gray-700 mb-8 leading-relaxed font-medium">
@@ -138,30 +138,20 @@
             const card = document.getElementById('card');
             const cardRect = card.getBoundingClientRect();
             
-            let currentX = parseFloat(btnNo.style.left) || 0;
-            let currentY = parseFloat(btnNo.style.top) || 0;
-            
-            // Move within a small radius (e.g. 80px away)
-            const jumpDistance = 80;
-            const angle = Math.random() * 2 * Math.PI;
-            let newX = currentX + Math.cos(angle) * jumpDistance;
-            let newY = currentY + Math.sin(angle) * jumpDistance;
-            
-            // Limit the movement so it strictly stays around the card
+            // Limit the movement so it strictly stays INSIDE the card bounds
             const padding = 20;
-            let minX = cardRect.left - padding;
-            let maxX = cardRect.right - btnWidth + padding;
-            let minY = cardRect.top - padding;
-            let maxY = cardRect.bottom - btnHeight + padding;
+            let minX = cardRect.left + padding;
+            let maxX = cardRect.right - btnWidth - padding;
+            let minY = cardRect.top + padding;
+            let maxY = cardRect.bottom - btnHeight - padding;
             
-            // Also ensure it never leaves the screen bounds
-            minX = Math.max(minX, 10);
-            maxX = Math.min(maxX, window.innerWidth - btnWidth - 10);
-            minY = Math.max(minY, 10);
-            maxY = Math.min(maxY, window.innerHeight - btnHeight - 10);
+            // Fallback for very small screens
+            if (maxX < minX) maxX = minX;
+            if (maxY < minY) maxY = minY;
             
-            newX = Math.max(minX, Math.min(maxX, newX));
-            newY = Math.max(minY, Math.min(maxY, newY));
+            // Jump randomly ANYWHERE inside the card!
+            let newX = minX + Math.random() * (maxX - minX);
+            let newY = minY + Math.random() * (maxY - minY);
             
             btnNo.style.left = newX + 'px';
             btnNo.style.top = newY + 'px';
