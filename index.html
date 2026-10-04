@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maaf Ya</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #fdf2f8; /* pink-50 */
+        }
+        .heartbeat {
+            animation: heartbeat 1.5s ease-in-out infinite both;
+        }
+        @keyframes heartbeat {
+            from { transform: scale(1); transform-origin: center center; animation-timing-function: ease-out; }
+            10% { transform: scale(0.91); animation-timing-function: ease-in; }
+            17% { transform: scale(0.98); animation-timing-function: ease-out; }
+            33% { transform: scale(0.87); animation-timing-function: ease-in; }
+            45% { transform: scale(1); animation-timing-function: ease-out; }
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen text-gray-800 font-sans">
+    <div class="bg-white p-8 rounded-2xl shadow-xl max-w-md text-center transform transition-all hover:scale-105 duration-300 mx-4">
+        <div class="text-6xl mb-4 heartbeat">🥺</div>
+        <h1 class="text-2xl font-bold text-pink-500 mb-4">Maaf Ya...</h1>
+        <p class="text-lg leading-relaxed text-gray-600 mb-6">
+            Aku minta maaf bahwa aku hari ini gak seperti biasanya dan mungkin buat kamu annoying. 🙏
+        </p>
+        <button onclick="acceptApology()" class="bg-pink-500 hover:bg-pink-600 text-white font-semibold py-2 px-6 rounded-full transition-colors duration-300">
+            Dimaafin kan?
+        </button>
+        <p id="response" class="mt-4 text-pink-600 font-medium hidden">Makasih udah dimaafin! ❤️</p>
+    </div>
+
+    <script>
+        function acceptApology() {
+            document.getElementById('response').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
