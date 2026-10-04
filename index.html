@@ -103,8 +103,8 @@
     <script>
         // Generate floating background particles
         const heartsContainer = document.getElementById('floating-hearts');
-        const heartSymbols = ['🌻', '🌻', '🌸', '💖', '✨', '💕', '🦋'];
-        for(let i=0; i<35; i++) {
+        const heartSymbols = ['🌻', '✨', '🌻', '🌸']; // Tidak ada lagi lope-lope
+        for(let i=0; i<15; i++) { // Mengurangi jumlah agar tidak terlalu ramai
             let heart = document.createElement('div');
             heart.className = 'heart-particle';
             heart.innerText = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
@@ -115,25 +115,43 @@
             heartsContainer.appendChild(heart);
         }
 
-        // Runaway Button Logic
+        // Runaway Button Logic (Mobile Friendly & Constrained)
         const btnNo = document.getElementById('btn-no');
         
         function moveButton() {
-            // First time hover, we change it to fixed positioning to detach it from flow
             if (btnNo.style.position !== 'fixed') {
+                const rect = btnNo.getBoundingClientRect();
                 btnNo.style.position = 'fixed';
+                btnNo.style.margin = '0';
+                btnNo.style.left = rect.left + 'px';
+                btnNo.style.top = rect.top + 'px';
+                btnNo.style.zIndex = '50';
+                setTimeout(dodge, 10);
+            } else {
+                dodge();
             }
-            
+        }
+        
+        function dodge() {
             const btnWidth = btnNo.offsetWidth;
             const btnHeight = btnNo.offsetHeight;
-            const maxX = window.innerWidth - btnWidth - 20;
-            const maxY = window.innerHeight - btnHeight - 20;
             
-            const randomX = Math.max(20, Math.random() * maxX);
-            const randomY = Math.max(20, Math.random() * maxY);
+            let currentX = parseFloat(btnNo.style.left) || 0;
+            let currentY = parseFloat(btnNo.style.top) || 0;
             
-            btnNo.style.left = randomX + 'px';
-            btnNo.style.top = randomY + 'px';
+            // Move within a small radius (e.g. 70-100px away) so it stays nearby
+            const jumpDistance = 90;
+            const angle = Math.random() * 2 * Math.PI;
+            let newX = currentX + Math.cos(angle) * jumpDistance;
+            let newY = currentY + Math.sin(angle) * jumpDistance;
+            
+            // Ensure it strictly stays within the screen bounds with padding
+            const padding = 20;
+            newX = Math.max(padding, Math.min(window.innerWidth - btnWidth - padding, newX));
+            newY = Math.max(padding, Math.min(window.innerHeight - btnHeight - padding, newY));
+            
+            btnNo.style.left = newX + 'px';
+            btnNo.style.top = newY + 'px';
         }
 
         btnNo.addEventListener('mouseover', moveButton);
